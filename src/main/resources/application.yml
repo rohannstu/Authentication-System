@@ -3,16 +3,17 @@ spring:
     name: jwt-auth-app
   datasource:
     username: postgres
-    password: 12345
-    url: jdbc:postgresql://localhost:5432/auth_db
+    password: password
+    url: jdbc:postgresql://localhost:5432/JWT_auths
   jpa:
     hibernate:
       ddl-auto: update
   mail:
     host: smtp.gmail.com
     port: 587
-    username: "MAIL"
-    password: "PASS"
+    username: "Your mail"
+    password: "App password"
+
     protocol: smtp
     test-connection: true
     properties:
