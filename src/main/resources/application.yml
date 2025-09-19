@@ -4,7 +4,7 @@ spring:
   datasource:
     username: postgres
     password: password
-    url: jdbc:postgresql://localhost:5432/JWT_auths
+    url: jdbc:postgresql://localhost:5432/UserInfo
   jpa:
     hibernate:
       ddl-auto: update
@@ -12,7 +12,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: "Your mail"
-    password: "App password"
+    password: "Your mail's app password"
 
     protocol: smtp
     test-connection: true
