@@ -24,9 +24,7 @@ A comprehensive authentication system built with Spring Boot that handles user r
   
 - **Security Implementation**
   - Spring Security integration
-  - Password encryption with BCrypt
   - Secure cookie handling
-  - CSRF protection
 
 ## Technology Stack
 
