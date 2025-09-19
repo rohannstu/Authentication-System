@@ -3,30 +3,57 @@
 
 # Authentication System
 
-A robust authentication system built with Spring Boot that provides secure user authentication with JWT tokens and email verification functionality.
+A comprehensive authentication system built with Spring Boot that handles user registration, email verification, and secure login using JWT tokens and cookies. This system provides a robust foundation for implementing secure user authentication in Spring Boot applications.
 
-## Features
+## Key Features
 
-- User Registration with Email Verification
-- JWT-based Authentication
-- Secure Password Handling
-- Email Notifications
-- RESTful API Endpoints
-- Spring Security Integration
+- **Secure User Registration**
+  - Email-based registration system
+  - Automatic verification code generation
+  - Email notifications for verification
+  
+- **Email Verification**
+  - Time-limited verification codes
+  - Secure email verification process
+  - Automated email delivery system
+  
+- **JWT Authentication**
+  - Secure JWT token generation
+  - Cookie-based token storage
+  - Protected endpoint access
+  
+- **Security Implementation**
+  - Spring Security integration
+  - Password encryption with BCrypt
+  - Secure cookie handling
+  - CSRF protection
 
-## Technologies Used
+## Technology Stack
 
-- Java 17
-- Spring Boot
-- Spring Security
-- JSON Web Tokens (JWT)
-- Spring Data JPA
-- PostgreSQL/MySQL
-- Maven
+- **Backend Framework**
+  - Java 21
+  - Spring Boot 3.x
+  - Spring Security 6.x
+  
+- **Security**
+  - JSON Web Tokens (JWT)
+  - HTTP-Only Cookies
+  - BCrypt Password Encoding
+  
+- **Database**
+  - Spring Data JPA
+  - PostgreSQL/MySQL
+  
+- **Email Service**
+  - Spring Mail
+  - SMTP Integration
+  
+- **Build Tool**
+  - Maven
 
 ## Prerequisites
 
-- JDK 17 or later
+- JDK 21
 - Maven 3.6+
 - Your preferred IDE (IntelliJ IDEA, Eclipse, VS Code)
 - PostgreSQL/MySQL database
@@ -71,48 +98,93 @@ A robust authentication system built with Spring Boot that provides secure user 
    mvn spring-boot:run
    ```
 
-## API Endpoints
+## API Documentation
 
-### Authentication
+### Authentication Endpoints
 
-- **Register User**
-  - POST `/api/auth/register`
-  - Request Body:
-    ```json
-    {
-      "name" : "your full name"
-      "email": "john.doe@example.com",
-      "password": "securePassword123"
+#### 1. Register User
+```http
+POST /api/auth/register
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "password": "securePassword123"
+}
+```
+- Creates new user account
+- Sends verification email
+- Returns: Registration confirmation
+
+#### 2. Verify Email
+```http
+POST /api/auth/verify
+Content-Type: application/json
+
+{
+    "email": "john.doe@example.com",
+    "code": "123456"
+}
+```
+- Verifies user email with code
+- Activates user account
+- Returns: Verification status
+
+#### 3. Login
+```http
+POST /api/auth/login
+Content-Type: application/json
+
+{
+    "email": "john.doe@example.com",
+    "password": "securePassword123"
+}
+```
+- Authenticates user credentials
+- Sets JWT in HTTP-only cookie
+- Returns: Authentication status and user info
+
+### Response Format
+```json
+{
+    "status": "SUCCESS",
+    "message": "Operation successful",
+    "data": {
+        "userId": "uuid",
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "verified": true
     }
-    ```
+}
+```
 
-- **Verify Email**
-  - POST `/api/auth/verify`
-  - Request Body:
-    ```json
-    {
-      "email": "john.doe@example.com",
-      "code": "123456"
-    }
-    ```
+## Security Implementation
 
-- **Login**
-  - POST `/api/auth/login`
-  - Request Body:
-    ```json
-    {
-      "email": "john.doe@example.com",
-      "password": "securePassword123"
-    }
-    ```
+### Authentication Flow
+1. User registers with email and password
+2. System sends verification code via email
+3. User verifies email with the received code
+4. Upon login, JWT token is generated
+5. Token is stored in HTTP-only cookie
+6. Subsequent requests are authenticated via cookie
 
-## Security Features
-
-- Password Encryption using BCrypt
-- JWT Token Authentication
-- Email Verification
-- Spring Security Configuration
-- Protected API Endpoints
+### Security Measures
+  
+- **JWT Implementation**
+  - Short-lived JWT tokens
+  - Secure cookie storage
+  - Token refresh mechanism
+  
+- **Email Security**
+  - Time-limited verification codes
+  - One-time use verification tokens
+  
+- **Application Security**
+  
+  - HTTP-only cookies
+  - Secure headers
+  - Protected endpoints
 
 ## Project Structure
 
@@ -150,3 +222,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Spring Boot and Spring Security documentation
 - JWT implementation guidelines
 - Email service integration best practices
+
